@@ -1,5 +1,5 @@
 /************************************ Imports ************************************/
-import { Button, FlatList, ImageBackground, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View, onPress } from 'react-native';
+import { Button, FlatList, ImageBackground, Modal, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View, onPress } from 'react-native';
 
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
@@ -16,21 +16,82 @@ const image2 = require('./assets/imagenes/japan1.jpg')
 /************************************ Aplicacion ************************************/
 export default function App() {
 
+    /*Lista de compra*/ 
     const [textItem, setTextItem] = useState('')
     const [itemList, setItemList] = useState([])
 
     const onHandlerChangeItem = (text) => setTextItem(text)
-    
     const onHandlerAddItem = () => {
-        setItemList(currentItems=>[...currentItems, {id: Math.round (Math.random()*1000) , value: textItem}])
+        setItemList(currentItems => [...currentItems, { id: Date.now(), value: textItem}])
         /* setItemList({...itemList, id: Math.random()*10, value: textItem}) */
         setTextItem('')
     }
+    
+    /* Modal */
+    const [itemSelected, setItemSelected] = useState({})
+    const [modalVisible, setModalVisible] = useState(false)
+
+    const onHandlerDeleteItem  = id => {
+        setItemList(currentItems => currentItems.filter(item => item.id !== id))
+        setItemSelected({})
+        setModalVisible(!modalVisible)
+    }
+    const onHandlerModal = id => {
+        setItemSelected(itemList.find(item => item.id === id))
+        setModalVisible(!modalVisible)
+    }
+
 
   return (
     <View style={styles.screen}>
 
         <ImageBackground source={image} resizeMode="cover" style={styles.fondo}>
+
+            {/* Mi Modal (No funciona) */}
+            {/* <Modal
+            animationType='slide'
+            transparent='true'
+            visible={modalVisible}>
+                <View style={styles.modal}>
+                    <View style={styles.modalView}>
+                        <View style={styles.modal_titulo}>
+                            <Text> Mi modal </Text>
+                        </View>
+                        <View style={styles.modal_mensaje}>
+                            <Text> Seguro que desea borrar? </Text>
+                        </View>
+                        <View style={styles.modal_mensaje}>
+                            <Text style={styles.modal_Item}>{itemSelected.value}</Text>
+                        </View>
+                        <View style={styles.modal_boton}>
+                            <Button onPress={() =>onHandlerDeleteItem(itemSelected.id)} title='Confirmar' style={styles.busqueda_boton}/>
+                        </View>
+                    </View>
+                </View>
+            </Modal> */}
+            
+            {/* Modal identico que funciona */}
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}>
+                <View style={styles.modal}>
+                    <View style={styles.modalView}>
+                        <View style={styles.modalTitle}>
+                            <Text> Mi modal </Text>
+                        </View>
+                        <View style={styles.modalMessage}>
+                            <Text>Estas seguro que desea borrar ?</Text>
+                        </View>
+                        <View style={styles.modalMessage}>
+                            <Text style={styles.modalItem}>{itemSelected.value}</Text>
+                        </View>
+                        <View style={styles.modalButton}>
+                            <Button onPress={() =>onHandlerDeleteItem(itemSelected.id)} title='Confirmar' />
+                        </View>
+                    </View>
+                </View>
+            </Modal>
 
 
             {/* Busqueda de Items */}
@@ -44,12 +105,13 @@ export default function App() {
                 style={styles.busqueda_texto}
                 />
 
-                <Button title='Agregar'
-                onPress={onHandlerAddItem}
-                disabled={textItem.length == 0 ? true : false}
+                {/* <Button title='Agregar'
+                onPress={onHandlerAddItem} disabled={textItem.length < 1 ? true : false}
                 style={styles.busqueda_boton}
-                />
+                /> */}
                 
+                {/* <Button title='Add' style={styles.busqueda_boton} onPress={onHandlerAddItem} disabled={textItem.length < 1 ? true : false}/> */}
+                <Button title='Add' style={styles.button} onPress={onHandlerAddItem} disabled={textItem.length < 1 ? true : false}/>
                 
                 {/* <Pressable style={styles.button} onPress={onHandlerAddItem}>
                     <Text style={styles.text}>{"Buy"}</Text>
@@ -80,7 +142,7 @@ export default function App() {
                 <FlatList style={styles.lista_compra}
                     data={itemList}
                     renderItem={data => (
-                        <TouchableOpacity onPress={() => {}} style={styles.datos_item}>
+                        <TouchableOpacity onPress={() => onHandlerModal(data.item.id)} style={styles.datos_item}>
                             <Text style={styles.texto_items}>
                                 {data.item.value}
                             </Text>
@@ -88,8 +150,10 @@ export default function App() {
                     )}
                     keyExtractor={item => item.id}
                     showsVerticalScrollIndicator={true}
-                    indicatorStyle='black'        
+                    indicatorStyle='black'
                 />
+
+                
 
 
                 {/* <View style={styles.datos_item}>
