@@ -1,4 +1,11 @@
-/************************************ Imports ************************************/
+/** Better comments test - @param miParametro El resto */
+    //todo Naranja - to do
+    //* Remarcar
+    //! Alerta
+    //? Interrogante
+     //// Tachado ////
+
+//! *************************************** Imports ***************************************/
 import { Button, FlatList, ImageBackground, Modal, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View, onPress } from 'react-native';
 
 import { StatusBar } from 'expo-status-bar';
@@ -6,17 +13,19 @@ import { useState } from 'react';
 
 /* const image = require('./assets/imagenes/japan1.jpg') */           //Metodo 1
 const image = require('./assets/imagenes/glass.jpg')           //Metodo 1
+
 /* export const image = require('./assets/imagenes/japan1.jpg'); */   //Metodo 2
-/*const image = { uri: "https://reactjs.org/logo-og.png"};*/  //Metodo 3
+
+//// const image = { uri: "https://reactjs.org/logo-og.png"};  //Metodo 3
 const image2 = require('./assets/imagenes/japan1.jpg')
 
 
 
 
-/************************************ Aplicacion ************************************/
+//! *************************************** Aplicacion ***************************************/
+//todo *********************    Funciones    *******************/
 export default function App() {
-
-    /*Lista de compra*/ 
+    //******************     Lista de compra     ******************/ 
     const [textItem, setTextItem] = useState('')
     const [itemList, setItemList] = useState([])
 
@@ -27,7 +36,8 @@ export default function App() {
         setTextItem('')
     }
     
-    /* Modal */
+
+    //******************     MODAL     ******************/ 
     const [itemSelected, setItemSelected] = useState({})
     const [modalVisible, setModalVisible] = useState(false)
 
@@ -41,60 +51,47 @@ export default function App() {
         setModalVisible(!modalVisible)
     }
 
-
+  //todo *********************    APP    *******************/
   return (
     <View style={styles.screen}>
 
         <ImageBackground source={image} resizeMode="cover" style={styles.fondo}>
 
-            {/* Mi Modal (No funciona) */}
-            {/* <Modal
-            animationType='slide'
-            transparent='true'
+            {/* //* Mi Modal (Habia puesto mal el {true} de transparent) */}
+            <Modal
+            animationType='fade'
+            transparent={true}
             visible={modalVisible}>
-                <View style={styles.modal}>
-                    <View style={styles.modalView}>
-                        <View style={styles.modal_titulo}>
-                            <Text> Mi modal </Text>
+
+                <View style={styles.modal_Container}>
+                    <View style={styles.modal_View}>
+
+                        <View>
+                            <Text style={styles.modal_titulo}> {itemSelected.value} </Text>
                         </View>
-                        <View style={styles.modal_mensaje}>
-                            <Text> Seguro que desea borrar? </Text>
+
+                        <View>
+                            <Text style={styles.modal_confirmacion}> Seguro que desea borrar este objeto de la lista? </Text>
                         </View>
-                        <View style={styles.modal_mensaje}>
-                            <Text style={styles.modal_Item}>{itemSelected.value}</Text>
-                        </View>
+
+                        {/* <View style={styles.modal_mensaje_container}>
+                            <Text style={styles.modal_mensaje_item}>{itemSelected.value}</Text>
+                        </View> */}
+                        
                         <View style={styles.modal_boton}>
                             <Button onPress={() =>onHandlerDeleteItem(itemSelected.id)} title='Confirmar' style={styles.busqueda_boton}/>
                         </View>
-                    </View>
-                </View>
-            </Modal> */}
-            
-            {/* Modal identico que funciona */}
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}>
-                <View style={styles.modal}>
-                    <View style={styles.modalView}>
-                        <View style={styles.modalTitle}>
-                            <Text> Mi modal </Text>
+
+                        <View style={styles.modal_boton}>
+                            <Button onPress={() =>onHandlerDeleteItem(itemSelected.id)} title='Cancelar' style={styles.busqueda_boton}/>
                         </View>
-                        <View style={styles.modalMessage}>
-                            <Text>Estas seguro que desea borrar ?</Text>
-                        </View>
-                        <View style={styles.modalMessage}>
-                            <Text style={styles.modalItem}>{itemSelected.value}</Text>
-                        </View>
-                        <View style={styles.modalButton}>
-                            <Button onPress={() =>onHandlerDeleteItem(itemSelected.id)} title='Confirmar' />
-                        </View>
+
                     </View>
                 </View>
             </Modal>
 
 
-            {/* Busqueda de Items */}
+            {/* //* Busqueda de Items */}
             <View style={styles.container_busqueda}>
 
                 <TextInput placeholder="Buscar Item..."
@@ -104,14 +101,10 @@ export default function App() {
                 placeholderTextColor='white'
                 style={styles.busqueda_texto}
                 />
-
-                {/* <Button title='Agregar'
-                onPress={onHandlerAddItem} disabled={textItem.length < 1 ? true : false}
-                style={styles.busqueda_boton}
-                /> */}
                 
-                {/* <Button title='Add' style={styles.busqueda_boton} onPress={onHandlerAddItem} disabled={textItem.length < 1 ? true : false}/> */}
-                <Button title='Add' style={styles.button} onPress={onHandlerAddItem} disabled={textItem.length < 1 ? true : false}/>
+                <Button title='Add'
+                style={styles.boton_para_hacer} onPress={onHandlerAddItem}
+                disabled={textItem.length < 1 ? true : false}/>
                 
                 {/* <Pressable style={styles.button} onPress={onHandlerAddItem}>
                     <Text style={styles.text}>{"Buy"}</Text>
@@ -120,15 +113,15 @@ export default function App() {
             </View>
 
 
-            {/* Lista de Compras/Items */}
+            {/* //*Lista de Compras/Items */}
             <Text style={styles.titulo}>
                     Lista de compra:
             </Text>
 
             <View style={styles.container_lista}>
 
-
-                {/* <View>
+                {/* Forma 1 de hacer la lista con un .map
+                 <View>
                     {itemList.map(item => 
                         <View style={styles.datos_item} key={item.id}>
                             <Text style={styles.texto_items}>Objeto: {item.value}</Text>
@@ -138,11 +131,38 @@ export default function App() {
                     )}
                 </View> */}
 
-      
-                <FlatList style={styles.lista_compra}
+                <FlatList /* style={styles.lista_compra} */
+                contentContainerStyle={styles.lista_compra}/* //* Esta forma da menos problemas? */
                     data={itemList}
                     renderItem={data => (
-                        <TouchableOpacity onPress={() => onHandlerModal(data.item.id)} style={styles.datos_item}>
+                        <View style={styles.datos_item}>
+                            <Text style={styles.texto_items}>
+                                {data.item.value} 
+                            </Text>
+
+                            <Button title='Quitar Item' onPress={() => onHandlerModal(data.item.id)}
+                            style={styles.estilo_boton}/>
+                            
+                            {/* A determinar que Boton queda mejor: */}
+                            {/* <TouchableOpacity onPress={() => onHandlerModal(data.item.id)}
+                            style={styles.estilo_boton}>
+                                <Text style={styles.texto_items}>
+                                    Quitar Item
+                                </Text>
+                            </TouchableOpacity>
+                            */}                    
+                        </View>
+                    )}
+                    keyExtractor={item => item.id}
+                    showsVerticalScrollIndicator={true}
+                    indicatorStyle='black'
+                />
+
+                {/* <FlatList style={styles.lista_compra}
+                    data={itemList}
+                    renderItem={data => (
+                        <TouchableOpacity onPress={() => onHandlerModal(data.item.id)}
+                        style={styles.datos_item}>
                             <Text style={styles.texto_items}>
                                 {data.item.value}
                             </Text>
@@ -151,18 +171,15 @@ export default function App() {
                     keyExtractor={item => item.id}
                     showsVerticalScrollIndicator={true}
                     indicatorStyle='black'
-                />
-
-                
+                /> */}
 
 
-                {/* <View style={styles.datos_item}>
+                <View style={styles.datos_item}>
                     <Text style={styles.texto_items}>
                         Objeto prueba 1
                     </Text>
                     <Button title='Add' onPress={()=>{}}style={styles.estilo_boton}/>
-                </View> */}
-
+                </View>
                 
             </View>
             
@@ -180,10 +197,10 @@ export default function App() {
     </View>
   );
 }
-/************************************ Estilos ************************************/
+//! *************************************** Estilos ***************************************/
 const styles = StyleSheet.create({
 
-    /* Pantalla */
+    /*//* PANTALLA GENERAL */
     screen:{
         flex:1,
         justifyContent: 'center' /* funciona? */
@@ -192,7 +209,8 @@ const styles = StyleSheet.create({
         flex: 1,
     },
 
-    /* Busqueda */
+
+    /*//* BUSQUEDA DE ITEMS */
     container_busqueda:{
         flexDirection:'row',
         justifyContent:'space-around',
@@ -225,11 +243,12 @@ const styles = StyleSheet.create({
         /* height: '30%', */
       },
 
-    /* Titulo Lista */
+
+    /*//* LISTA DE ITEMS */
     titulo:{
         alignSelf:'center',
         textAlign:'center',
-        margin:20,
+        margin:'5%',
 
         color:'black',
         fontSize:40,
@@ -241,14 +260,19 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#fff',
     },
-    
-    /* Lista de Items */
+    container_lista:{
+        justifyContent:'space-evenly',
+        alignContent:'center',
+        alignItems:'center',
+    },
     lista_compra:{
         backgroundColor: 'rgba(255, 88, 25, 0.1)',
         borderRadius: 40,
         borderWidth: 1,
-        borderColor: 'white'
-
+        
+        borderColor: 'white',
+        alignItems:'stretch',
+        alignContent:'center',
         /* marginRight: 20,
         marginLeft: 20,
         marginTop: 10,
@@ -259,22 +283,22 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#fff', */
     },
-    container_lista:{
-        justifyContent:'center',
-        alignContent:'center',
-        alignItems:'center'
-    },
     datos_item:{
         flexDirection:'row',
         justifyContent:'space-evenly',
         alignItems:'center',
+        alignSelf:'flex-end',
         backgroundColor: 'rgba(225, 85, 35, 0.4)',
         borderRadius: 20,
         borderWidth: 1,
         borderColor: '#fff',
         width:'90%',
-        marginTop:60,
+        margin:'5%',
+        /* gap:'50%', BUSCAR REEMPLAZO DE GAP, GAP NO TIENE SOPORTE EN NATIVE*/
         alignSelf:'center',
+    
+        justifyContent:'center',
+        alignContent:'center',
     },
     texto_items:{
         color:'black',
@@ -285,11 +309,70 @@ const styles = StyleSheet.create({
     estilo_boton:{
         backgroundColor:'red',
         color:'#fff',
-        borderBottomColor:'#eee',
-        borderBottomWidth:5,
+        /* borderBottomColor:'#eee',
+        borderBottomWidth:5, */
     },
     
+
+    /*//* MODAL */
+    modal_Container:{
+        flex: 1,
+        justifyContent:'space-evenly',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0,0,0,0.6)',
+    },
     
+    modal_View:{
+        /* flex:1, */
+        flexShrink: 1, //Achica para mostrar solo necesario
+        flexDirection: 'column',
+        maxWidth:'80%',
+        maxHeight:'45%',
+
+
+        justifyContent:'space-evenly',
+        alignItems: 'center',
+
+        backgroundColor: 'lightgrey',
+        borderRadius: 20,
+        padding: '5%',
+        
+    },
+    modal_titulo:{
+        backgroundColor: 'black',
+        borderRadius: 20,
+        borderWidth: 3,
+        borderColor: 'black',
+        color: 'white',
+        fontSize: 40,
+        width:'100%',
+        
+        /* 
+        alignSelf:'center',
+        justifyContent:'space-between',
+        alignItems: 'center', */
+    },
+    modal_confirmacion:{
+        color: 'white',
+        fontSize: 20,
+    },
+    modal_mensaje_container:{
+        backgroundColor: 'red',
+        color: 'red',
+        fontSize: 30,
+        },
+    modal_mensaje_item:{
+        backgroundColor: 'blue',
+        color: 'red',
+        fontSize: 20,
+    },
+    modal_boton:{
+
+    },
+
+    
+
+    /*//* EXTRAS / A BORRAR */
       text: {
         fontSize: 16,
         lineHeight: 21,
