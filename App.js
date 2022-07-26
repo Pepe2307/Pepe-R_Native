@@ -79,21 +79,20 @@ export default function App() {
             onHandlerModal={onHandlerModal}
             />
             
+            <Tabs/>
+            
         </ImageBackground>
 
 
         <ImageBackground source={image2}>
             <View style={styles.texto_segunda_mitad}>
                 <Button title='App' onPress={()=>{}}style={styles.estilo_boton_nuevo}/>
-
-                {/* <Button title='Carrito' onPress={()=>{}}style={styles.estilo_boton_nuevo}/>
-                <Button title='Compras' onPress={()=>{}}style={styles.estilo_boton_nuevo}/>
-                <Button title='Ajustes' onPress={()=>{}}style={styles.estilo_boton_nuevo}/> */}
-
                 
                 <Tabs/>
+                
             </View>
         </ImageBackground>
+
         
         <StatusBar style="auto" />
 

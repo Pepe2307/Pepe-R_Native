@@ -14,10 +14,10 @@ const Tabs = () => {
         <Tab.Screen name="HomeMenu" component={HomeStackScreen} />
         <Tab.Screen name="SettingsMenu" component={SettingsStackScreen} />
         
-{/*         <Button title='Ir a screens' onPress={()=>{
+        {/* <Button title='Ir a screens' onPress={()=>{
             navigation.navigate('HomeStackScreen')
-        }}/>
- */}
+        }}/> */}
+
       </Tab.Navigator>
     </NavigationContainer>
   );
