@@ -94,9 +94,9 @@ const styles = StyleSheet.create({
     },
     datos_item:{
         flexDirection:'row',
-        justifyContent:'space-evenly',
+        justifyContent:'center',
         alignItems:'center',
-        alignSelf:'flex-end',
+        alignSelf:'center',
         backgroundColor: 'rgba(225, 85, 35, 0.4)',
         borderRadius: 20,
         borderWidth: 1,
@@ -104,9 +104,7 @@ const styles = StyleSheet.create({
         width:'90%',
         margin:'5%',
         /* gap:'50%', BUSCAR REEMPLAZO DE GAP, GAP NO TIENE SOPORTE EN NATIVE*/
-        alignSelf:'center',
-    
-        justifyContent:'center',
+        
         alignContent:'center',
     },
     texto_items:{

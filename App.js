@@ -12,6 +12,7 @@ import CustomAddItem from './components/AddItem/AddItem';
 import CustomModal from './components/Modal/Modal';
 import FlatListItems from './components/FlatList_Items/Flatlist_Items';
 import { StatusBar } from 'expo-status-bar';
+import Tabs from './src/Tabs';
 import { useState } from 'react';
 
 const image = require('./assets/imagenes/glass.jpg')           //Metodo 1
@@ -82,9 +83,16 @@ export default function App() {
 
 
         <ImageBackground source={image2}>
-            <Text style={styles.texto_segunda_mitad}>
-                <Button title='Segunda pagina =>' onPress={()=>{}}style={styles.estilo_boton_nuevo}/>
-            </Text>
+            <View style={styles.texto_segunda_mitad}>
+                <Button title='App' onPress={()=>{}}style={styles.estilo_boton_nuevo}/>
+
+                {/* <Button title='Carrito' onPress={()=>{}}style={styles.estilo_boton_nuevo}/>
+                <Button title='Compras' onPress={()=>{}}style={styles.estilo_boton_nuevo}/>
+                <Button title='Ajustes' onPress={()=>{}}style={styles.estilo_boton_nuevo}/> */}
+
+                
+                <Tabs/>
+            </View>
         </ImageBackground>
         
         <StatusBar style="auto" />
@@ -106,6 +114,8 @@ const styles = StyleSheet.create({
 
 
     texto_segunda_mitad:{
+        flexDirection:'row',
+        justifyContent:'space-evenly',
         color:'black',
         textAlign:'center',
         margin:20,
