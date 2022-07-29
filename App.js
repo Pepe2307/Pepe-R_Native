@@ -54,45 +54,8 @@ export default function App() {
   return (
     <View style={styles.screen}>
 
-        <ImageBackground source={image} resizeMode="cover" style={styles.fondo}>
-
-            {/* //* MI MODAL
-            (Habia puesto mal el {true} de transparent) */}
-            <CustomModal
-            modalVisible={modalVisible}
-            itemSelected={itemSelected}
-            onHandlerDeleteItem={onHandlerDeleteItem}
-            />
-
-
-            {/* //* BARRA DE BUSQUEDA Y ADD */}
-            <CustomAddItem
-            textItem={textItem}
-            onHandlerChangeItem={onHandlerChangeItem}
-            onHandlerAddItem={onHandlerAddItem}
-            />
-
-
-            {/* //*Lista de Compras/Items */}
-            <FlatListItems
-            itemList={itemList}
-            onHandlerModal={onHandlerModal}
-            />
-            
-            <Tabs/>
-            
-        </ImageBackground>
-
-
-        <ImageBackground source={image2}>
-            <View style={styles.texto_segunda_mitad}>
-                <Button title='App' onPress={()=>{}}style={styles.estilo_boton_nuevo}/>
-                
-                <Tabs/>
-                
-            </View>
-        </ImageBackground>
-
+        
+        <Tabs/>
         
         <StatusBar style="auto" />
 
